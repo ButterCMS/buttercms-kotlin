@@ -1,5 +1,6 @@
 package com.example.buttercms
 
+import com.example.buttercms.model.JSONObjectAdapter
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
@@ -30,6 +31,7 @@ class ButterCmsRepository {
 
     private val moshi = Moshi.Builder()
         .add(KotlinJsonAdapterFactory())
+        .add(JSONObjectAdapter())
         .build()
 
     fun retrofitClient(baseUrl: String, apiToken: String): Retrofit = Retrofit.Builder()

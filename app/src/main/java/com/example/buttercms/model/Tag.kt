@@ -5,3 +5,7 @@ data class Tag(
     val slug: String,
     val recentPost: List<Post>?
 )
+
+data class Tags(
+    val data: List<Tag>
+)

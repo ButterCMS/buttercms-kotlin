@@ -5,3 +5,7 @@ data class Category(
     val slug: String,
     val recentPost: List<Post>?
 )
+
+data class Categories(
+    val data: List<Category>
+)
