@@ -4,6 +4,7 @@ import com.example.buttercms.model.Collections
 import com.example.buttercms.model.Meta
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.ObjectMapper
+import com.fasterxml.jackson.module.kotlin.KotlinModule
 import com.google.gson.Gson
 
 fun <T> collectionWrapper(
@@ -17,7 +18,7 @@ fun <T> collectionWrapper(
     val gson = Gson()
     val jsonElement = gson.toJson(response)
 
-    val mapper = ObjectMapper()
+    val mapper = ObjectMapper().registerModule(KotlinModule())
     val root: JsonNode = mapper.readTree(jsonElement)
     return Collections(
         meta = mapper.convertValue(root.get("meta"), Meta::class.java),
@@ -34,7 +35,6 @@ fun includeRecentPosts(): Map<String, String> {
 
 enum class Collection(val value: String) {
     KEYS("keys"),
-    FIELDS("fields."),
     PAGE("page"),
     PAGESIZE("page_size"),
     LOCALE("locale"),
@@ -63,27 +63,28 @@ enum class Post(val value: String) {
     TAGSLUG("tag_slug");
 }
 
-fun convertCollection(map: HashMap<Collection, String>): Map<String, String> {
+fun convertCollection(map: HashMap<Any, String>): Map<String, String> {
     val final = HashMap<String, String>()
     map.forEach {
 
         val (key2, value2) = when (it.key) {
             // Collection
             Collection.KEYS -> useRequestContentList(Collection.KEYS.value, it.value)
-            Collection.FIELDS -> useRequestContentList(
-                Collection.FIELDS.value + convertString(it.value).first,
-                convertString(it.value).second
-            )
             Collection.PAGE -> useRequestContentList(Collection.PAGE.value, it.value)
             Collection.PAGESIZE -> useRequestContentList(Collection.PAGESIZE.value, it.value)
             Collection.LOCALE -> useRequestContentList(Collection.LOCALE.value, it.value)
             Collection.LEVELS -> useRequestContentList(Collection.LEVELS.value, it.value)
             Collection.TEST -> useRequestContentList(Collection.TEST.value, it.value)
             Collection.ORDER -> useRequestContentList(Collection.ORDER.value, it.value)
+            else -> Pair(it.key, it.value)
         }
-        final[key2] = value2
+        final[key2 as String] = value2
     }
     return final
+}
+
+fun useRequestContentField(value: String, key: String): Pair<String, String> {
+    return Pair(value, key)
 }
 
 fun useRequestContentList(value: String, key: String): Pair<String, String> {
@@ -121,11 +122,4 @@ fun convertPost(map: HashMap<Post, String>): Map<String, String> {
         final[key2] = value2
     }
     return final
-}
-
-fun convertString(value: String): Pair<String, String> {
-    val valueNew: Int = value.indexOf(' ')
-    val val1 = value.substring(0, valueNew)
-    val val2 = value.substring(valueNew).trimStart()
-    return Pair(val1, val2)
 }

@@ -29,8 +29,17 @@ class Demo : AppCompatActivity() {
 //                    client, "faq",
 //                    convertCollection(
 //                        hashMapOf(
-//                         Collection.KEYS to "home_title",
-//                            Collection.PAGE to "1"
+//                            Collection.LOCALE to "en"
+//                        )
+//                    ),
+//                    myCollection = DemoData::class.java
+//                )
+
+//                val response = collectionWrapper(
+//                    client, "faq",
+//                    convertCollection(
+//                        hashMapOf(
+//                            "fields.question" to "Can"
 //                        )
 //                    ),
 //                    myCollection = DemoData::class.java
