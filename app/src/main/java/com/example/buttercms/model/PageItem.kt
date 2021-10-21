@@ -1,6 +1,6 @@
 package com.example.buttercms.model
 
-data class Page<T>(
+data class PageItem<T>(
     val slug: String,
     val name: String,
     val published: String,
@@ -10,9 +10,9 @@ data class Page<T>(
 )
 
 data class Pages(
-    val data: List<Page<Any>>
+    val data: List<PageItem<Any>>
 )
 
-data class SinglePage(
-    val data: Page<Any>
+data class Page(
+    val data: PageItem<Any>
 )

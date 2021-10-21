@@ -1,8 +1,6 @@
 package com.example.buttercms.model
 
-import com.squareup.moshi.Json
-
-data class Author(
+data class AuthorItem(
     val first_name: String,
     val last_name: String?,
     val email: String?,
@@ -16,10 +14,13 @@ data class Author(
     val twitter_handle: String?,
     val profile_image: String?,
     // With query include=recent_posts:
-    val recentPosts: List<Post>?
+    val recent_posts: List<Data>?
+)
+
+data class Author(
+    val data: AuthorItem
 )
 
 data class Authors(
-    @Json(name = "data")
-    val dataAuthors: List<Author>
+    val data: List<AuthorItem>
 )
