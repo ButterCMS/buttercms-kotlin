@@ -1,7 +1,7 @@
 # buttercms-android
 Android library for ButterCMS API.
 ## Documentation
-For a comprehensive list of examples, check out the [API documentation][https://buttercms.com/docs/api/]
+For a comprehensive list of examples, check out the [API documentation](https://buttercms.com/docs/api/).
 
 ## Installation
 ### Gradle
@@ -23,7 +23,7 @@ dependencies {
 - Tags
 
 ### Usage
-To get started with the Butter API, instantiate the ButterCMSClient with the API key found in the [Butter Admin Settings][https://buttercms.com/login/?next=/settings/]
+To get started with the Butter API, instantiate the ButterCMSClient with the API key found in the [Butter Admin Settings](https://buttercms.com/login/?next=/settings/).
 
 ```
 // Initialize Butter client
@@ -126,9 +126,9 @@ fun getTags(@QueryMap queryParameters: Map<String, String>?): Call<TagsResponse>
 
 ### Pages
 
-The Pages in Butter CMS has configurable schema. See [ButterCMS][https://buttercms.com/kb/creating-editing-and-deleting-pages-and-page-types#creatingapage] doc for details how to create page. The schema defines fileds which can exist on the page. 
+The Pages in Butter CMS has configurable schema. See [ButterCMS](https://buttercms.com/kb/creating-editing-and-deleting-pages-and-page-types#creatingapage) doc for details how to create page. The schema defines fileds which can exist on the page. 
 
-ButerCMS also provides a concept of Page types and you can get all pages of the same type by getPages() API. To read more about the Page types refer to [ButterCMS doc][https://buttercms.com/kb/creating-editing-and-deleting-pages-and-page-types#creatingapagetype]
+ButerCMS also provides a concept of Page types and you can get all pages of the same type by getPages() API. To read more about the Page types refer to [ButterCMS doc](https://buttercms.com/kb/creating-editing-and-deleting-pages-and-page-types#creatingapagetype).
 
 ```
 @GET("$PAGES{page_type_slug}/{page_slug}/")
@@ -142,7 +142,7 @@ fun getPages(@Path("page_type") page_type: String,@QueryMap queryParameters: Map
 
 ### Collection
 
-imilar as Pages the Collections has also configurable schema. See [ButterCMS][https://buttercms.com/kb/creating-editing-and-deleting-collections#creatingacollection] doc for more details. The schema again define fields which composes the collection item. The SDK requires you to model the collection data as a data class an provide it as a parameter to the API. For converting receiving data to your prepared data class, you need to call helper function "collectionWrapper" from Helpers.kt and provide your prepared data class.(with your slug and map of Collection parameters)
+imilar as Pages the Collections has also configurable schema. See [ButterCMS](https://buttercms.com/kb/creating-editing-and-deleting-collections#creatingacollection) doc for more details. The schema again define fields which composes the collection item. The SDK requires you to model the collection data as a data class an provide it as a parameter to the API. For converting receiving data to your prepared data class, you need to call helper function "collectionWrapper" from Helpers.kt and provide your prepared data class.(with your slug and map of Collection parameters)
 
 ```
 @GET("$COLLECTIONS{slug}/")
