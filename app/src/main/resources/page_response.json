@@ -1,0 +1,31 @@
+{
+  "data": {
+    "slug": "homepage",
+    "name": "homepage",
+    "published": "2021-08-18T13:46:40.022482Z",
+    "updated": "2021-08-18T13:49:23.279727Z",
+    "page_type": "homepage",
+    "fields": {
+      "headline": "ButterCMS. Headless CMS you'll melt over",
+      "subheadline": "Easy to use marketing dashboard and blazing fast content API for your modern apps",
+      "section": [
+        {
+          "title": "Blog Engine",
+          "subtitle": "You've got better things to do than building another blog.",
+          "buttonurl": "https://buttercms.com/features/#flexiblecontentmodeling-blog-engine"
+        },
+        {
+          "title": "Pages",
+          "subtitle": "Build SEO landing pages, knowledge base, news articles, and more by using Page Types.",
+          "buttonurl": "https://buttercms.com/features/#flexiblecontentmodeling-page-types"
+        },
+        {
+          "title": "Collections",
+          "subtitle": "Create reusable promotional content and more with Collections.",
+          "buttonurl": "https://buttercms.com/features/#flexiblecontentmodeling-collections"
+        }
+      ],
+      "documentationurl": "https://buttercms.com/docs/api/?javascript#"
+    }
+  }
+}

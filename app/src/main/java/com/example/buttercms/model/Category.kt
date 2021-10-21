@@ -11,5 +11,24 @@ data class Categories(
 data class CategoryItem(
     val name: String,
     val slug: String,
-    val recent_posts: List<Post>?
+    val recent_posts: List<CategoryPost>?
+)
+
+data class CategoryPost(
+    val status: Status?,
+    val created: String?,
+    val updated: String?,
+    val published: String?,
+    val title: String,
+    val slug: String,
+    val body: String?,
+    val summary: String?,
+    val seo_title: String?,
+    val meta_description: String?,
+    val featured_image_alt: String?,
+    val url: String?,
+    val featured_image: String?,
+    val author: AuthorItem?,
+    val tags: List<Tag>?,
+    val categories: List<Category>?,
 )

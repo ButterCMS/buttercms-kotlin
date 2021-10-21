@@ -29,7 +29,7 @@ fun <T> collectionWrapper(
 }
 
 fun includeRecentPosts(): Map<String, String> {
-    return mapOf(Pair("include", "recent_post"))
+    return mapOf(Pair("include", "recent_posts"))
 }
 
 enum class Collection(val value: String) {

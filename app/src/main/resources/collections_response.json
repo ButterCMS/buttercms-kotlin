@@ -1,0 +1,25 @@
+{
+  "meta": {
+    "count": 2,
+    "next_page": null,
+    "previous_page": null
+  },
+  "data": {
+    "faq": [
+      {
+        "meta": {
+          "id": 143274
+        },
+        "question": "Can I Add Custom Fields to Blog Posts?",
+        "answer": "Need custom fields for your blog posts? Try Page Types to build a custom blog engine."
+      },
+      {
+        "meta": {
+          "id": 143273
+        },
+        "question": "Does Butter Provide Themes and Templates?",
+        "answer": "We do not provide templates or themes. We're SaaS so we host and maintain the CMS API and Dashboard. You query our Content API to pull content into your app. So we host and maintain the data, and you define your own custom content models within Butter."
+      }
+    ]
+  }
+}
