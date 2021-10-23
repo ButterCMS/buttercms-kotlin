@@ -16,20 +16,19 @@ class Demo : AppCompatActivity() {
             try {
                 // Authors
                 val response =
-                    client.data.getAuthor("applifting-sample", includeRecentPosts()).execute()
-//                val response = client.data.getAuthors(includeRecentPosts()).execute()
-                // QueryMap does not take null
+                    client.data.getAuthor("applifting-sample", includeRecentPosts(true)).execute()
+//                val response = client.data.getAuthors(includeRecentPosts(false)).execute()
 
                 // Categories
-//                val response = client.data.getCategory("example-category", includeRecentPosts()).execute()
-//                val response = client.data.getCategories(includeRecentPosts()).execute()
+//                val response = client.data.getCategory("example-category", includeRecentPosts(false)).execute()
+//                val response = client.data.getCategories(includeRecentPosts(true)).execute()
 
                 // Collections
 //                val response = collectionWrapper(
 //                    client, "faq",
 //                    convertCollection(
 //                        hashMapOf(
-//                            Collection.LOCALE to "en"
+//                            Collection.LOCALE to "en", Collection.PAGE to "1"
 //                        )
 //                    ),
 //                    myCollection = DemoData::class.java
@@ -39,7 +38,17 @@ class Demo : AppCompatActivity() {
 //                    client, "faq",
 //                    convertCollection(
 //                        hashMapOf(
-//                            "fields.question" to "Can"
+//                            Collection.KEYS to ("home,title")
+//                        )
+//                    ),
+//                    myCollection = DemoData::class.java
+//                )
+
+//                val response = collectionWrapper(
+//                    client, "faq",
+//                    convertCollectionField(
+//                        hashMapOf(
+//                            Collection.FIELDS to Pair("question", "question")
 //                        )
 //                    ),
 //                    myCollection = DemoData::class.java
@@ -48,22 +57,26 @@ class Demo : AppCompatActivity() {
                 // Page
 //                val response = client.data.getPage(
 //                    "homepage", "homepage",
-//                    convertPage(hashMapOf(Page.LOCALE to "en"))
+//                    convertPage(hashMapOf(Page.LOCALE to "en", Page.PREVIEW to "1"))
 //                ).execute()
 
 //                val response = client.data.getPages("homepage", convertPage(hashMapOf(
-//                    Page.LOCALE to "en"
+//                    Page.PAGE to "1", Page.PAGESIZE to "1", Page.LOCALE to "en"
 //                ))
 //                ).execute()
 
                 // Post
 //                val response = client.data.getPost("example-2").execute()
 //                val response = client.data.getPosts(convertPost(hashMapOf(Post.PAGE to "1"))).execute()
-//                val response = client.data.searchPosts("example", convertPost(hashMapOf(Post.PAGE to "1"))).execute()
-
+//                val response = client.data.searchPosts(
+//                    "example",
+//                    convertPost(
+//                            hashMapOf(Post.PAGE to "1", Post.PREVIEW to "1")
+//                    )
+//                ).execute()
                 // Tags
 //                val response = client.data.getTag("example-tag").execute()
-//                val response = client.data.getTags(includeRecentPosts()).execute()
+//                val response = client.data.getTags(includeRecentPosts(false)).execute()
 
                 println(response)
             } catch (ex: Exception) {

@@ -4,10 +4,7 @@ import com.example.buttercms.model.*
 import com.example.buttercms.model.Page
 import com.example.buttercms.model.Post
 import retrofit2.Call
-import retrofit2.http.GET
-import retrofit2.http.Path
-import retrofit2.http.Query
-import retrofit2.http.QueryMap
+import retrofit2.http.*
 
 class ButterCMS(apiToken: String) {
 
@@ -31,27 +28,27 @@ interface ButterCmsService {
     @GET("$AUTHORS{author}")
     fun getAuthor(
         @Path("author") author: String,
-        @QueryMap queryParameters: Map<String, String>?
+        @Query("include") include: String?
     ): Call<Author>
 
     @GET(AUTHORS)
-    fun getAuthors(@QueryMap queryParameters: Map<String, String>?): Call<Authors>
+    fun getAuthors(@Query("include") include: String?): Call<Authors>
 
     // Categories
     @GET("$CATEGORIES{category}/")
     fun getCategory(
         @Path("category") category: String,
-        @QueryMap queryParameters: Map<String, String>?
+        @Query("include") include: String?
     ): Call<Category>
 
     @GET(CATEGORIES)
-    fun getCategories(@QueryMap queryParameters: Map<String, String>?): Call<Categories>
+    fun getCategories(@Query("include") include: String?): Call<Categories>
 
     // Collections
     @GET("$COLLECTIONS{slug}/")
     fun getCollections(
         @Path("slug") slug: String,
-        @QueryMap queryParameters: Map<String, String>?
+        @QueryMap(encoded = true) queryParameters: Map<String, String>?
     ): Call<Collections<Any>>
 
     // Pages
@@ -86,5 +83,5 @@ interface ButterCmsService {
     fun getTag(@Path("tag") tag: String): Call<TagResponse>
 
     @GET(TAGS)
-    fun getTags(@QueryMap queryParameters: Map<String, String>?): Call<TagsResponse>
+    fun getTags(@Query("include") include: String?): Call<TagsResponse>
 }

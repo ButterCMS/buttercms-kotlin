@@ -29,7 +29,7 @@ class NetworkDataSourceTest {
         val mockResponse = interactor.getAuthor()
 
         val authorName = "applifting-sample"
-        val queryParam = HashMap<String, String>()
+        val queryParam = String()
 
         val actualResponse =
             client.data.getAuthor(
@@ -43,7 +43,7 @@ class NetworkDataSourceTest {
     @Test
     fun fetchAuthorAndCheckSuccessCode() {
         val authorName = "applifting-sample"
-        val queryParam = HashMap<String, String>()
+        val queryParam = String()
 
         val response =
             client.data.getAuthor(
@@ -57,7 +57,7 @@ class NetworkDataSourceTest {
     @Test
     fun fetchAuthorAndCheckFailedCode() {
         val authorName = "applifting"
-        val queryParam = HashMap<String, String>()
+        val queryParam = String()
 
         val response = client.data.getAuthor(
             authorName,
@@ -74,8 +74,7 @@ class NetworkDataSourceTest {
         mockWebServer.setResponse("authors_response.json")
         val mockResponse = interactor.getAuthors()
 
-        val queryParam = HashMap<String, String>()
-        queryParam["include"] = "recent_posts"
+        val queryParam = "recent_posts"
 
         val actualResponse =
             client.data.getAuthors(
@@ -94,7 +93,7 @@ class NetworkDataSourceTest {
 
         val actualResponse =
             client.data.getCategory(
-                "example-category", mapOf("include" to "recent_posts")
+                "example-category", "recent_posts"
             ).execute()
         assertEquals(mockResponse, actualResponse.body())
     }
@@ -108,7 +107,7 @@ class NetworkDataSourceTest {
 
         val actualResponse =
             client.data.getCategories(
-                mapOf("include" to "recent_posts")
+                "recent_posts"
             ).execute()
         assertEquals(mockResponse, actualResponse.body())
     }
@@ -195,7 +194,7 @@ class NetworkDataSourceTest {
 
         val actualResponse =
             client.data.searchPosts(
-                "example",  mapOf("include" to "recent_post")
+                "example", mapOf("include" to "recent_post")
             ).execute()
         assertEquals(mockResponse, actualResponse.body())
     }
@@ -224,7 +223,7 @@ class NetworkDataSourceTest {
 
         val actualResponse =
             client.data.getTags(
-                mapOf("include" to "recent_post")
+                "recent_posts"
             ).execute()
         assertEquals(mockResponse, actualResponse.body())
     }

@@ -29,12 +29,15 @@ fun <T> collectionWrapper(
     )
 }
 
-fun includeRecentPosts(): Map<String, String> {
-    return mapOf(Pair("include", "recent_posts"))
+fun includeRecentPosts(includeRecentPosts: Boolean): String? {
+    return if (includeRecentPosts) {
+        "recent_posts"
+    } else null
 }
 
 enum class Collection(val value: String) {
     KEYS("keys"),
+    FIELDS("fields."),
     PAGE("page"),
     PAGESIZE("page_size"),
     LOCALE("locale"),
@@ -66,7 +69,6 @@ enum class Post(val value: String) {
 fun convertCollection(map: HashMap<Any, String>): Map<String, String> {
     val final = HashMap<String, String>()
     map.forEach {
-
         val (key2, value2) = when (it.key) {
             // Collection
             Collection.KEYS -> useRequestContentList(Collection.KEYS.value, it.value)
@@ -83,8 +85,22 @@ fun convertCollection(map: HashMap<Any, String>): Map<String, String> {
     return final
 }
 
-fun useRequestContentField(value: String, key: String): Pair<String, String> {
-    return Pair(value, key)
+fun convertCollectionField(map: HashMap<Any, Pair<String, String>>): Map<String, String> {
+    val final = HashMap<String, String>()
+    map.forEach {
+        val (key2, value2) = when (it.key) {
+            Collection.FIELDS -> useRequestContentField(Collection.FIELDS.value, it.value)
+            else -> Pair(it.key, it.value)
+        }
+        final[key2 as String] = value2.toString()
+    }
+    return final
+}
+
+fun useRequestContentField(value: String, key: Pair<String, String>): Pair<String, String> {
+    val newValue = value + key.first
+    val newKey = key.second
+    return Pair(newValue, newKey)
 }
 
 fun useRequestContentList(value: String, key: String): Pair<String, String> {

@@ -45,21 +45,22 @@ object Helper {
 
 class TestInteractor(private val api: ButterCmsService) {
     fun getAuthor() =
-        api.getAuthor("applifting-sample", mapOf("preview" to "1")).execute().body()
+        api.getAuthor("applifting-sample", "include=recent_posts").execute().body()
 
-    fun getAuthors() = api.getAuthors(mapOf("include" to "recent_posts")).execute().body()
+    fun getAuthors() = api.getAuthors("include=recent_posts").execute().body()
 
     fun getPost() = api.getPost("example-2").execute().body()
     fun getPosts() =
         api.getPosts(mapOf("page" to "1", "page_size" to "10")).execute().body()
 
-    fun searchPosts() = api.searchPosts("example", mapOf("include" to "recent_posts")).execute().body()
+    fun searchPosts() =
+        api.searchPosts("example", mapOf("include" to "recent_posts")).execute().body()
 
-    fun getCategory() = api.getCategory("example-category", mapOf("include" to "recent_posts")).execute().body()
-    fun getCategories() = api.getCategories(mapOf("include" to "recent_posts")).execute().body()
+    fun getCategory() = api.getCategory("example-category", "include=recent_posts").execute().body()
+    fun getCategories() = api.getCategories("include=recent_posts").execute().body()
 
     fun getTag() = api.getTag("example-tag").execute().body()
-    fun getTags() = api.getTags(mapOf("include" to "recent_posts")).execute().body()
+    fun getTags() = api.getTags("include=recent_posts").execute().body()
 
     fun getPage() =
         api.getPage("homepage", "homepage", mapOf("locale" to "en")).execute().body()
