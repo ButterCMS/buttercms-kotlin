@@ -35,21 +35,18 @@ val client = ButterCMS("your_api_key")
 Every endpoint expects list of parameters. 
 In Helpers.kt file you can find help functions and defined enum parameters.
 
-- For Author, Categories, Tags: for including recent post call help function
-```
-fun includeRecentPosts(): Map<String, String> {
-    return mapOf(Pair("include", "recent_posts"))
-}
-```
-and then code looks like this:
+- For Author, Categories, Tags: for including/not including parameter include=recent_posts call function includeRecentPosts(set true or false)
+
+code looks like this:
 ```
 val client = ButterCMS("your_api_key")
-val response = client.data.getAuthor("your_author", includeRecentPosts()).execute()
+ val response = client.data.getAuthor("author_slug", includeRecentPosts(true)).execute()
 ```
 
 - For Collections, Page, Post: 
-e.g. Page - choose function called convertPage, put hashmap of chosen Page enum as parameter and value
+- choose function called convertPage(or convertPage or convertPage), put hashmap of chosen Enum as parameter and value
 
+Page enum: 
 ```
 enum class Page(val value: String) {
     PREVIEW("preview"),
@@ -61,16 +58,13 @@ enum class Page(val value: String) {
     PAGESIZE("page_size");
 }
 ```
-
-then code will look like this:
+code will look like this:
 
 ```
 val client = ButterCMS("your_api_key")
-client.data.getPage(
-                    "page_type", "page_slug",
-                    convertPage(hashMapOf(Page.LOCALE to "en"))
-                ).execute()
+val response = client.data.getPage("homepage", "homepage",convertPage(hashMapOf(Page.LOCALE to "en", Page.PREVIEW to "1"))).execute()
 ```
+
 ## Blog Posts
 ### Posts
 
@@ -78,38 +72,48 @@ client.data.getPage(
 @GET("$POSTS{slug}/")
 fun getPost(@Path("slug") slug: String): Call<Post>
 ```
+
 ```
 @GET(POSTS)
 fun getPosts(@QueryMap queryParameters: Map<String, String>?): Call<Posts>
 ```
 
 ```
-@GET(SEARCH) 
-fun searchPosts(@Query("query") query: String, @QueryMap queryParameters: Map<String, String>?): Call<Posts>
+@GET(SEARCH)
+    fun searchPosts(
+        @Query("query") query: String,
+        @QueryMap queryParameters: Map<String, String>?
+    ): Call<Posts>
 ```
 
 ### Authors
 
 ```
-@GET("$AUTHORS{author}")
-fun getAuthor(@Path("author") author: String, @QueryMap queryParameters: Map<String, String>?): Call<Author>
+ @GET("$AUTHORS{author}")
+    fun getAuthor(
+        @Path("author") author: String,
+        @Query("include") include: String?
+    ): Call<Author>
 ```
 
 ```
 @GET(AUTHORS)
-fun getAuthors(@QueryMap queryParameters: Map<String, String>?): Call<Authors>
+fun getAuthors(@Query("include") include: String?): Call<Authors>
 ```
 
 ### Categories
 
 ```
 @GET("$CATEGORIES{category}/")
-fun getCategory(@Path("category") category: String,@QueryMap queryParameters: Map<String, String>?): Call<Category>
+   fun getCategory(
+       @Path("category") category: String,
+       @Query("include") include: String?
+   ): Call<Category>
 ```
 
 ```
 @GET(CATEGORIES)
-fun getCategories(@QueryMap queryParameters: Map<String, String>?): Call<Categories>
+fun getCategories(@Query("include") include: String?): Call<Categories>
 ```
 
 ### Tags
@@ -121,7 +125,7 @@ fun getTag(@Path("tag") tag: String): Call<TagResponse>
 
 ```
 @GET(TAGS)
-fun getTags(@QueryMap queryParameters: Map<String, String>?): Call<TagsResponse>
+fun getTags(@Query("include") include: String?): Call<TagsResponse>
 ```
 
 ### Pages
@@ -132,33 +136,45 @@ ButerCMS also provides a concept of Page types and you can get all pages of the 
 
 ```
 @GET("$PAGES{page_type_slug}/{page_slug}/")
-fun getPage(@Path("page_type_slug") page_type: String,@Path("page_slug") page_slug: String,@QueryMap queryParameters: Map<String, String>): Call<Page>
+   fun getPage(
+       @Path("page_type_slug") page_type: String,
+       @Path("page_slug") page_slug: String,
+       @QueryMap queryParameters: Map<String, String>
+   ): Call<Page>
 ```
 
 ```
 @GET("$PAGES{page_type}/")
-fun getPages(@Path("page_type") page_type: String,@QueryMap queryParameters: Map<String, String>?): Call<Pages>
+    fun getPages(
+        @Path("page_type") page_type: String,
+        @QueryMap queryParameters: Map<String, String>?
+    ): Call<Pages>
 ```
 
 ### Collection
 
-imilar as Pages the Collections has also configurable schema. See [ButterCMS](https://buttercms.com/kb/creating-editing-and-deleting-collections#creatingacollection) doc for more details. The schema again define fields which composes the collection item. The SDK requires you to model the collection data as a data class an provide it as a parameter to the API. For converting receiving data to your prepared data class, you need to call helper function "collectionWrapper" from Helpers.kt and provide your prepared data class.(with your slug and map of Collection parameters)
+similar as Pages the Collections has also configurable schema. See [ButterCMS](https://buttercms.com/kb/creating-editing-and-deleting-collections#creatingacollection) doc for more details. The schema again define fields which composes the collection item. The SDK requires you to model the collection data as a data class. For converting receiving data to your prepared data class, you need to call helper function "collectionWrapper" from Helpers.kt and provide your prepared data class as parameter for collectionWrapper func.(with your slug and map of Collection parameters)
 
 ```
 @GET("$COLLECTIONS{slug}/")
-fun getCollections(@Path("slug") slug: String,@QueryMap queryParameters: Map<String, String>?): Call<Collections<Any>>
+    fun getCollections(
+        @Path("slug") slug: String,
+        @QueryMap(encoded = true) queryParameters: Map<String, String>?
+    ): Call<Collections>
 ```
-
 
 code will looks like this:
+
 ```
+val client = ButterCMS("your_api_key")
 val response = collectionWrapper(
-   client, "your_slug",
-   convertCollection(
-         hashMapOf(
-              Collection.LOCALE to "en"
-         )
-     ),
-     myCollection = YOUR_DATA_CLASS::class.java
-)
+                    client, "your_slug",
+                    convertCollection(
+                        hashMapOf(
+                            Collection.LOCALE to "en", Collection.PAGE to "1"
+                        )
+                    ),
+                    myCollection = YourPreparedDataClass::class.java
+                )
+```
 
