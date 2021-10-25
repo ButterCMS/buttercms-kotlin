@@ -3,6 +3,7 @@ package com.example.buttercms.example
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.buttercms.*
+import com.example.buttercms.Collection
 
 class Demo : AppCompatActivity() {
 

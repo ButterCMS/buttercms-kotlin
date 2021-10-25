@@ -1,6 +1,6 @@
 package com.example.buttercms.model
 
-data class Collections<T>(
+data class Collections(
     val meta: Meta?,
-    var data: T
+    var data: Any
 )

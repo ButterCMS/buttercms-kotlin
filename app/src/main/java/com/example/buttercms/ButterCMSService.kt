@@ -49,7 +49,7 @@ interface ButterCmsService {
     fun getCollections(
         @Path("slug") slug: String,
         @QueryMap(encoded = true) queryParameters: Map<String, String>?
-    ): Call<Collections<Any>>
+    ): Call<Collections>
 
     // Pages
     @GET("$PAGES{page_type_slug}/{page_slug}/")

@@ -3,6 +3,7 @@ plugins {
     id 'kotlin-android'
     id 'kotlin-parcelize'
 }
+apply plugin: "kotlin-kapt"
 
 android {
     compileSdkVersion 30
@@ -34,6 +35,10 @@ android {
     buildFeatures {
         viewBinding true
     }
+
+    sourceSets {
+        test.resources.srcDirs += 'src/main/res/raw'
+    }
 }
 
 dependencies {
@@ -58,9 +63,10 @@ dependencies {
 
     implementation "com.squareup.moshi:moshi:1.12.0"
     implementation "com.squareup.moshi:moshi-kotlin:1.12.0"
-    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
     implementation "com.fasterxml.jackson.module:jackson-module-kotlin:2.13.0"
     implementation 'com.squareup.retrofit2:converter-jackson:2.1.0'
+
+    kapt 'com.squareup.moshi:moshi-kotlin-codegen:1.12.0'
 
     //Test
     testImplementation("com.squareup.okhttp3:mockwebserver:4.9.2")

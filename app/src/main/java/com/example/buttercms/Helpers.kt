@@ -5,19 +5,20 @@ import com.example.buttercms.model.Meta
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.KotlinModule
-import com.google.gson.Gson
+import com.squareup.moshi.*
+import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 
 fun <T> collectionWrapper(
     client: ButterCMS,
     slug: String,
     queryParameters: Map<String, String>?,
     myCollection: Class<T>
-): Collections<T> {
+): Collections {
+    val response = client.data.getCollections(slug, queryParameters).execute().body()!!
 
-    val response = client.data.getCollections(slug, queryParameters).execute().body()
-    val gson = Gson()
-    val jsonElement = gson.toJson(response)
-
+    val moshi = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
+    val adapter = moshi.adapter<Any>(Collections::class.java)
+    val jsonElement = adapter.toJson(response)
     val mapper = ObjectMapper().registerModule(KotlinModule())
     val root: JsonNode = mapper.readTree(jsonElement)
     return Collections(
@@ -69,7 +70,7 @@ enum class Post(val value: String) {
 fun convertCollection(map: HashMap<Any, String>): Map<String, String> {
     val final = HashMap<String, String>()
     map.forEach {
-        val (key2, value2) = when (it.key) {
+        val (paramName, paramValue) = when (it.key) {
             // Collection
             Collection.KEYS -> useRequestContentList(Collection.KEYS.value, it.value)
             Collection.PAGE -> useRequestContentList(Collection.PAGE.value, it.value)
@@ -80,7 +81,7 @@ fun convertCollection(map: HashMap<Any, String>): Map<String, String> {
             Collection.ORDER -> useRequestContentList(Collection.ORDER.value, it.value)
             else -> Pair(it.key, it.value)
         }
-        final[key2 as String] = value2
+        final[paramName as String] = paramValue
     }
     return final
 }
@@ -88,19 +89,22 @@ fun convertCollection(map: HashMap<Any, String>): Map<String, String> {
 fun convertCollectionField(map: HashMap<Any, Pair<String, String>>): Map<String, String> {
     val final = HashMap<String, String>()
     map.forEach {
-        val (key2, value2) = when (it.key) {
+        val (paramName, paramValue) = when (it.key) {
             Collection.FIELDS -> useRequestContentField(Collection.FIELDS.value, it.value)
             else -> Pair(it.key, it.value)
         }
-        final[key2 as String] = value2.toString()
+        final[paramName as String] = paramValue.toString()
     }
     return final
 }
 
-fun useRequestContentField(value: String, key: Pair<String, String>): Pair<String, String> {
-    val newValue = value + key.first
-    val newKey = key.second
-    return Pair(newValue, newKey)
+fun useRequestContentField(
+    paramName: String,
+    paramValue: Pair<String, String>
+): Pair<String, String> {
+    val newParamName = paramName + paramValue.first
+    val newParamValue = paramValue.second
+    return Pair(newParamName, newParamValue)
 }
 
 fun useRequestContentList(value: String, key: String): Pair<String, String> {
@@ -110,14 +114,14 @@ fun useRequestContentList(value: String, key: String): Pair<String, String> {
 fun convertPage(map: HashMap<Page, String>): Map<String, String> {
     val final = HashMap<String, String>()
     map.forEach {
-        val (key2, value2) = when (it.key) {
+        val (paramName, paramValue) = when (it.key) {
             Page.PREVIEW -> useRequestContentList(Page.PREVIEW.value, it.value)
             Page.LOCALE -> useRequestContentList(Page.LOCALE.value, it.value)
             Page.LEVELS -> useRequestContentList(Page.LEVELS.value, it.value)
             Page.PAGE -> useRequestContentList(Page.PAGE.value, it.value)
             Page.PAGESIZE -> useRequestContentList(Page.PAGESIZE.value, it.value)
         }
-        final[key2] = value2
+        final[paramName] = paramValue
     }
 
     return final
@@ -126,7 +130,7 @@ fun convertPage(map: HashMap<Page, String>): Map<String, String> {
 fun convertPost(map: HashMap<Post, String>): Map<String, String> {
     val final = HashMap<String, String>()
     map.forEach {
-        val (key2, value2) = when (it.key) {
+        val (paramName, paramValue) = when (it.key) {
             Post.AUTHORSLUG -> useRequestContentList(Post.AUTHORSLUG.value, it.value)
             Post.CATEGORYSLUG -> useRequestContentList(Post.CATEGORYSLUG.value, it.value)
             Post.EXCLUDEBODY -> useRequestContentList(Post.EXCLUDEBODY.value, it.value)
@@ -135,7 +139,7 @@ fun convertPost(map: HashMap<Post, String>): Map<String, String> {
             Post.PREVIEW -> useRequestContentList(Post.PREVIEW.value, it.value)
             Post.TAGSLUG -> useRequestContentList(Post.TAGSLUG.value, it.value)
         }
-        final[key2] = value2
+        final[paramName] = paramValue
     }
     return final
 }
