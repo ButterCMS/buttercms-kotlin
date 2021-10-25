@@ -44,8 +44,9 @@ val client = ButterCMS("your_api_key")
 ```
 
 - For Collections, Page, Post: 
-- choose function called convertPage(or convertPage or convertPage), put hashmap of chosen Enum as parameter and value
+- choose function called convertPage(or convertCollection or convertPost), put hashmap of chosen Enum as parameter and your value
 
+For example:
 Page enum: 
 ```
 enum class Page(val value: String) {
