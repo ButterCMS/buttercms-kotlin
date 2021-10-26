@@ -7,6 +7,7 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
+import java.util.*
 
 class ButterCmsRepository {
 
@@ -30,6 +31,7 @@ class ButterCmsRepository {
     }
 
     private val moshi = Moshi.Builder()
+        .add(CustomDateAdapter())
         .add(KotlinJsonAdapterFactory())
         .build()
 

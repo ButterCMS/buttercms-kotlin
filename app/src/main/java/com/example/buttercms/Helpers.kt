@@ -14,7 +14,7 @@ fun <T> collectionWrapper(
     queryParameters: Map<String, String>?,
     myCollection: Class<T>
 ): Collections {
-    val response = client.data.getCollections(slug, queryParameters).execute().body()!!
+    val response = client.data.getCollections(slug, queryParameters).execute().body()
 
     val moshi = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
     val adapter = moshi.adapter<Any>(Collections::class.java)

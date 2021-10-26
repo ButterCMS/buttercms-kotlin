@@ -1,10 +1,12 @@
 package com.example.buttercms.model
 
+import java.util.*
+
 data class PageItem<T>(
     val slug: String,
     val name: String,
-    val published: String,
-    val updated: String,
+    val published: Date?,
+    val updated: Date?,
     val page_type: String,
     val fields: T
 )

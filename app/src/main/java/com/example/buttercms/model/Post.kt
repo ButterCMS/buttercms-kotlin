@@ -1,6 +1,7 @@
 package com.example.buttercms.model
 
 import com.squareup.moshi.Json
+import java.util.*
 
 data class Post(
     val meta: MetaPost,
@@ -31,9 +32,9 @@ data class Meta(
 
 data class Data(
     val status: Status?,
-    val created: String?,
-    val updated: String?,
-    val published: String?,
+    val created: Date?,
+    val updated: Date?,
+    val published: Date?,
     val title: String,
     val slug: String,
     val body: String?,
