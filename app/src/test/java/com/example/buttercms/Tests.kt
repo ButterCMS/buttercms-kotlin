@@ -8,7 +8,7 @@ import org.junit.After
 import org.junit.Before
 import org.junit.Test
 
-class NetworkDataSourceTest {
+class Tests {
     var mockWebServer = MockWebServer()
     val client = ButterCMS("3606556ecbd4134ea24b8936a829ab9edaddb583")
 

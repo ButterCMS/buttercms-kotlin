@@ -1,6 +1,6 @@
 package com.example.buttercms.model
 
-import java.util.*
+import java.util.Date
 
 data class PageItem<T>(
     val slug: String,

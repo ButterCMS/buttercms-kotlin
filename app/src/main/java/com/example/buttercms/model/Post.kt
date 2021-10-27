@@ -1,7 +1,7 @@
 package com.example.buttercms.model
 
 import com.squareup.moshi.Json
-import java.util.*
+import java.util.Date
 
 data class Post(
     val meta: MetaPost,

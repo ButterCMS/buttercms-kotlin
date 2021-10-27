@@ -1,10 +1,11 @@
 package com.example.buttercms
 
 import com.example.buttercms.model.*
-import com.example.buttercms.model.Page
-import com.example.buttercms.model.Post
 import retrofit2.Call
-import retrofit2.http.*
+import retrofit2.http.GET
+import retrofit2.http.Path
+import retrofit2.http.Query
+import retrofit2.http.QueryMap
 
 class ButterCMS(apiToken: String) {
 
