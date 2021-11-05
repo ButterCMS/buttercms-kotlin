@@ -37,9 +37,9 @@ interface ButterCmsService {
     }
 
     // Authors
-    @GET("$AUTHORS{author}")
+    @GET("$AUTHORS{slug}")
     fun getAuthor(
-        @Path("author") author: String,
+        @Path("slug") slug: String,
         @QueryMap queryParameters: Map<String, String>? = emptyMap()
     ): Call<Author>
 
@@ -47,9 +47,9 @@ interface ButterCmsService {
     fun getAuthors(@QueryMap queryParameters: Map<String, String>? = emptyMap()): Call<Authors>
 
     // Categories
-    @GET("$CATEGORIES{category}/")
+    @GET("$CATEGORIES{slug}/")
     fun getCategory(
-        @Path("category") category: String,
+        @Path("slug") slug: String,
         @QueryMap queryParameters: Map<String, String>? = emptyMap()
     ): Call<Category>
 
@@ -64,16 +64,16 @@ interface ButterCmsService {
     ): Call<Collections>
 
     // Pages
-    @GET("$PAGES{page_type_slug}/{page_slug}/")
+    @GET("$PAGES{page_type}/{page_slug}/")
     fun getPage(
-        @Path("page_type_slug") page_type: String,
+        @Path("page_type") page_type: String,
         @Path("page_slug") page_slug: String,
         @QueryMap queryParameters: Map<String, String>
     ): Call<Page>
 
-    @GET("$PAGES{page_type_slug}/")
+    @GET("$PAGES{page_type}/")
     fun getPages(
-        @Path("page_type_slug") page_type: String,
+        @Path("page_type") page_type: String,
         @QueryMap queryParameters: Map<String, String>
     ): Call<Pages>
 
@@ -91,8 +91,8 @@ interface ButterCmsService {
     ): Call<Posts>
 
     // Tag
-    @GET("$TAGS{tag}/")
-    fun getTag(@Path("tag") tag: String): Call<Tag>
+    @GET("$TAGS{slug}/")
+    fun getTag(@Path("slug") slug: String): Call<Tag>
 
     @GET(TAGS)
     fun getTags(@QueryMap queryParameters: Map<String, String>? = emptyMap()): Call<Tags>
@@ -100,11 +100,11 @@ interface ButterCmsService {
 
 @Throws(RestCallError::class)
 fun ButterCmsService.getAuthor(
-    author: String,
+    slug: String,
     queryParameters: Map<String, String>,
     callback: Callback<Author, RestCallError>
 ) {
-    val call = getAuthor(author, queryParameters)
+    val call = getAuthor(slug, queryParameters)
     call.enqueueCall {
         onSuccess = { body ->
             callback.success(body)
@@ -135,11 +135,11 @@ fun ButterCmsService.getAuthors(
 
 @Throws(RestCallError::class)
 fun ButterCmsService.getCategory(
-    category: String,
+    slug: String,
     queryParameters: Map<String, String>,
     callback: Callback<Category, RestCallError>
 ) {
-    val call = getCategory(category, queryParameters)
+    val call = getCategory(slug, queryParameters)
     call.enqueueCall {
         onSuccess = { body ->
             callback.success(body)
@@ -200,13 +200,13 @@ fun <T> ButterCmsService.getCollection(
 
 @Throws(RestCallError::class)
 fun <T> ButterCmsService.getPage(
-    page_type_slug: String,
-    page_slug: String,
+    pageType: String,
+    pageSlug: String,
     queryParameters: Map<String, String>,
     classType: Class<T>,
     callback: Callback<Page, RestCallError>
 ) {
-    val call = getPage(page_type_slug, page_slug, queryParameters)
+    val call = getPage(pageType, pageSlug, queryParameters)
     call.enqueueCall {
         onSuccess = { body ->
             val mapper = ObjectMapper().registerModule(KotlinModule())
@@ -227,13 +227,13 @@ fun <T> ButterCmsService.getPage(
 
 @Throws(IOException::class)
 fun <T> ButterCmsService.getPages(
-    slug: String,
+    pageType: String,
     queryParameters: Map<String, String>,
     classType: Class<T>,
     callback: Callback<Pages, RestCallError>
 ) {
     val call =
-        getPages(slug, queryParameters)
+        getPages(pageType, queryParameters)
 
     call.enqueueCall {
         onSuccess = { body ->
@@ -308,10 +308,10 @@ fun ButterCmsService.searchPosts(
 
 @Throws(RestCallError::class)
 fun ButterCmsService.getTag(
-    query: String,
+    slug: String,
     callback: Callback<Tag, RestCallError>
 ) {
-    val call = getTag(query)
+    val call = getTag(slug)
     call.enqueueCall {
         onSuccess = { body ->
             callback.success(body)

@@ -11,8 +11,7 @@ class RestCallError(
     val kind: Kind,
     val exception: Throwable? = null,
     val errorBody: String? = null
-) :
-    Error(errorMessage, exception) {
+) : Error(errorMessage, exception) {
 
     /**
      * Identifies the event kind which triggered a [RestCallError].
@@ -102,6 +101,6 @@ class ResponseCallback<T : Any> : Callback<T> {
 }
 
 interface Callback<T, E : RestCallError?> {
-    fun success(t: T)
+    fun success(response: T)
     fun failure(error: E) // add status to failure as well
 }
