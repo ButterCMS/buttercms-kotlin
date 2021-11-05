@@ -92,7 +92,10 @@ interface ButterCmsService {
 
     // Tag
     @GET("$TAGS{slug}/")
-    fun getTag(@Path("slug") slug: String): Call<Tag>
+    fun getTag(
+        @Path("slug") slug: String,
+        @QueryMap queryParameters: Map<String, String>
+    ): Call<Tag>
 
     @GET(TAGS)
     fun getTags(@QueryMap queryParameters: Map<String, String>? = emptyMap()): Call<Tags>
@@ -309,9 +312,10 @@ fun ButterCmsService.searchPosts(
 @Throws(RestCallError::class)
 fun ButterCmsService.getTag(
     slug: String,
+    queryParameters: Map<String, String>,
     callback: Callback<Tag, RestCallError>
 ) {
-    val call = getTag(slug)
+    val call = getTag(slug, queryParameters)
     call.enqueueCall {
         onSuccess = { body ->
             callback.success(body)

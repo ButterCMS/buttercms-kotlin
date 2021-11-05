@@ -206,7 +206,7 @@ class Demo : AppCompatActivity() {
 //            val queryParameters = HashMap<String, String>()
 //            queryParameters["include"] = "recent_posts"
 //            client.data.getTag(
-//                "example-tag",
+//                "example-tag", queryParameters,
 //                callback = object : Callback<Tag, RestCallError> {
 //                    override fun success(response: Tag) {
 //                        Log.w("success", response.toString())
