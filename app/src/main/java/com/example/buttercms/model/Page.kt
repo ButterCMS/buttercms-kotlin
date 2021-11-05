@@ -2,19 +2,20 @@ package com.example.buttercms.model
 
 import java.util.Date
 
-data class PageItem<T>(
+data class PageItem(
     val slug: String,
     val name: String,
     val published: Date?,
     val updated: Date?,
     val page_type: String,
-    val fields: T
+    val fields: Any
 )
 
 data class Pages(
-    val data: List<PageItem<Any>>
+    val meta: Meta,
+    val data: List<Any>
 )
 
 data class Page(
-    val data: PageItem<Any>
+    val data: Any
 )

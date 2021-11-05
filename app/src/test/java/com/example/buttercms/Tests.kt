@@ -29,7 +29,8 @@ class Tests {
         val mockResponse = interactor.getAuthor()
 
         val authorName = "applifting-sample"
-        val queryParam = String()
+        val queryParam = HashMap<String, String>()
+        queryParam["include"] = "recent_posts"
 
         val actualResponse =
             client.data.getAuthor(
@@ -43,7 +44,8 @@ class Tests {
     @Test
     fun fetchAuthorAndCheckSuccessCode() {
         val authorName = "applifting-sample"
-        val queryParam = String()
+        val queryParam = HashMap<String, String>()
+        queryParam["include"] = "recent_posts"
 
         val response =
             client.data.getAuthor(
@@ -57,7 +59,8 @@ class Tests {
     @Test
     fun fetchAuthorAndCheckFailedCode() {
         val authorName = "applifting"
-        val queryParam = String()
+        val queryParam = HashMap<String, String>()
+        queryParam["include"] = "recent_posts"
 
         val response = client.data.getAuthor(
             authorName,
@@ -74,7 +77,8 @@ class Tests {
         mockWebServer.setResponse("authors_response.json")
         val mockResponse = interactor.getAuthors()
 
-        val queryParam = "recent_posts"
+        val queryParam = HashMap<String, String>()
+        queryParam["include"] = "recent_posts"
 
         val actualResponse =
             client.data.getAuthors(
@@ -90,10 +94,12 @@ class Tests {
         val interactor = TestInteractor(api)
         mockWebServer.setResponse("category_response.json")
         val mockResponse = interactor.getCategory()
+        val queryParam = HashMap<String, String>()
+        queryParam["include"] = "recent_posts"
 
         val actualResponse =
             client.data.getCategory(
-                "example-category", "recent_posts"
+                "example-category", queryParam
             ).execute()
         assertEquals(mockResponse, actualResponse.body())
     }
@@ -104,10 +110,12 @@ class Tests {
         val interactor = TestInteractor(api)
         mockWebServer.setResponse("categories_response.json")
         val mockResponse = interactor.getCategories()
+        val queryParam = HashMap<String, String>()
+        queryParam["include"] = "recent_posts"
 
         val actualResponse =
             client.data.getCategories(
-                "recent_posts"
+                queryParam
             ).execute()
         assertEquals(mockResponse, actualResponse.body())
     }
@@ -220,10 +228,12 @@ class Tests {
         val interactor = TestInteractor(api)
         mockWebServer.setResponse("tags_response.json")
         val mockResponse = interactor.getTags()
+        val queryParam = HashMap<String, String>()
+        queryParam["include"] = "recent_posts"
 
         val actualResponse =
             client.data.getTags(
-                "recent_posts"
+                queryParam
             ).execute()
         assertEquals(mockResponse, actualResponse.body())
     }

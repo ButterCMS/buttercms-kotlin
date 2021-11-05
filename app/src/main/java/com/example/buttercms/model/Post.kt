@@ -8,26 +8,26 @@ data class Post(
     val data: Data
 )
 
-data class MetaPost(
-    val next_post: String?,
-    val previous_post: PreviousPost
-)
-
-data class PreviousPost(
-    val slug: String,
-    val title: String,
-    val featured_image: String?
-)
-
 data class Posts(
     val meta: Meta,
     val data: List<Data>
+)
+
+data class MetaPost(
+    val next_post: String?,
+    val previous_post: PreviousPost
 )
 
 data class Meta(
     val next_page: Int?,
     val previous_page: Int?,
     val count: Int
+)
+
+data class PreviousPost(
+    val slug: String,
+    val title: String,
+    val featured_image: String?
 )
 
 data class Data(
@@ -45,8 +45,8 @@ data class Data(
     val url: String?,
     val featured_image: String?,
     val author: AuthorItem?,
-    val tags: List<Tag>?,
-    val categories: List<Category>?,
+    val tags: List<TagItem>?,
+    val categories: List<CategoryItem>?,
 )
 
 enum class Status {

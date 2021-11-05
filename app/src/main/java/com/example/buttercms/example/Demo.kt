@@ -1,9 +1,12 @@
 package com.example.buttercms.example
 
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.example.buttercms.*
-import com.example.buttercms.Collection
+import com.example.buttercms.error.Callback
+import com.example.buttercms.error.RestCallError
+import com.example.buttercms.model.*
 
 class Demo : AppCompatActivity() {
 
@@ -14,75 +17,222 @@ class Demo : AppCompatActivity() {
         val client = ButterCMS("3606556ecbd4134ea24b8936a829ab9edaddb583")
 
         Thread {
-            try {
-                // Authors
-                val response =
-                    client.data.getAuthor("applifting-sample", includeRecentPosts(true)).execute()
-//                val response = client.data.getAuthors(includeRecentPosts(false)).execute()
+            // Authors
+            val authorParameters = HashMap<String, String>()
+            authorParameters["include"] = "recent_posts"
 
-                // Categories
-//                val response = client.data.getCategory("example-category", includeRecentPosts(false)).execute()
-//                val response = client.data.getCategories(includeRecentPosts(true)).execute()
+            client.data.getAuthor(
+                "applifting-sample", authorParameters,
+                callback = object :
+                    Callback<Author, RestCallError> {
+                    override fun success(t: Author) {
+                        Log.w("success", t.toString())
+                    }
 
-                // Collections
-//                val response = collectionWrapper(
-//                    client, "faq",
-//                    convertCollection(
-//                        hashMapOf(
-//                            Collection.LOCALE to "en", Collection.PAGE to "1"
+                    override fun failure(error: RestCallError) {
+                        Log.w(
+                            "DemoError",
+                            error.errorMessage.toString() + error.errorBody.toString()
+                        )
+                    }
+                }
+            )
+
+//            client.data.getAuthors(
+//                authorParameters,
+//                callback = object :
+//                    Callback<Authors, RestCallError> {
+//                    override fun success(t: Authors) {
+//                        Log.w("success", t.toString())
+//                    }
+//
+//                    override fun failure(error: RestCallError) {
+//                        Log.w(
+//                            "DemoError",
+//                            error.errorMessage.toString() + error.errorBody.toString()
 //                        )
-//                    ),
-//                    myCollection = DemoData::class.java
-//                )
+//                    }
+//                }
+//            )
 
-//                val response = collectionWrapper(
-//                    client, "faq",
-//                    convertCollection(
-//                        hashMapOf(
-//                            Collection.KEYS to ("home,title")
+            // Categories
+//            val categoryParameters = HashMap<String, String>()
+//            categoryParameters["include"] = "recent_posts"
+//
+//            client.data.getCategory(
+//                "example-category", categoryParameters,
+//                callback = object :
+//                    Callback<Category, RestCallError> {
+//                    override fun success(t: Category) {
+//                        Log.w("success", t.toString())
+//                    }
+//
+//                    override fun failure(error: RestCallError) {
+//                        Log.w(
+//                            "DemoError",
+//                            error.errorMessage.toString() + error.errorBody.toString()
 //                        )
-//                    ),
-//                    myCollection = DemoData::class.java
-//                )
-
-//                val response = collectionWrapper(
-//                    client, "faq",
-//                    convertCollectionField(
-//                        hashMapOf(
-//                            Collection.FIELDS to Pair("question", "question")
+//                    }
+//                }
+//            )
+//
+//            client.data.getCategories(
+//                categoryParameters,
+//                callback = object :
+//                    Callback<Categories, RestCallError> {
+//                    override fun success(t: Categories) {
+//                        Log.w("success", t.toString())
+//                    }
+//
+//                    override fun failure(error: RestCallError) {
+//                        Log.w(
+//                            "DemoError",
+//                            error.errorMessage.toString() + error.errorBody.toString()
 //                        )
-//                    ),
-//                    myCollection = DemoData::class.java
-//                )
+//                    }
+//                }
+//            )
 
-                // Page
-//                val response = client.data.getPage(
-//                    "homepage", "homepage",
-//                    convertPage(hashMapOf(Page.LOCALE to "en", Page.PREVIEW to "1"))
-//                ).execute()
+            // Collections
+//            val collectionParameters = HashMap<String, String>()
+//            collectionParameters["locale"] = "en"
+//            client.data.getCollection(
+//                "faq",
+//                collectionParameters,
+//                DemoData::class.java,
+//                callback = object :
+//                    Callback<Collections, RestCallError> {
+//                    override fun success(t: Collections) {
+//                        Log.w("success", t.toString())
+//                    }
+//
+//                    override fun failure(error: RestCallError) {
+//                        Log.w(
+//                            "DemoError",
+//                            error.errorMessage.toString() + error.errorBody.toString()
+//                        )
+//                    }
+//                }
+//            )
 
-//                val response = client.data.getPages("homepage", convertPage(hashMapOf(
-//                    Page.PAGE to "1", Page.PAGESIZE to "1", Page.LOCALE to "en"
-//                ))
-//                ).execute()
+            // Page
+//            val pageParameters = HashMap<String, String>()
+//            pageParameters["locale"] = "en"
+//            pageParameters["preview"] = "1"
+//            client.data.getPage(
+//                "homepage",
+//                "homepage",
+//                pageParameters,
+//                DemoPageItem::class.java,
+//                callback = object : Callback<Page, RestCallError> {
+//                    override fun success(t: Page) {
+//                        Log.w("success", t.toString())
+//                    }
+//
+//                    override fun failure(error: RestCallError) {
+//                        Log.w(
+//                            "DemoError",
+//                            error.errorMessage.toString() + error.errorBody.toString()
+//                        )
+//                    }
+//                }
+//            )
 
-                // Post
-//                val response = client.data.getPost("example-2").execute()
-//                val response = client.data.getPosts(convertPost(hashMapOf(Post.PAGE to "1"))).execute()
-//                val response = client.data.searchPosts(
-//                    "example",
-//                    convertPost(
-//                            hashMapOf(Post.PAGE to "1", Post.PREVIEW to "1")
-//                    )
-//                ).execute()
-                // Tags
-//                val response = client.data.getTag("example-tag").execute()
-//                val response = client.data.getTags(includeRecentPosts(false)).execute()
+//            val pagesParameters = HashMap<String, String>()
+//            pagesParameters["locale"] = "en"
+//            pagesParameters["preview"] = "1"
+//            client.data.getPages(
+//                "homepage",
+//                pagesParameters,
+//                DemoPageItem::class.java,
+//                callback = object : Callback<Pages, RestCallError> {
+//                    override fun success(t: Pages) {
+//                        Log.w("success", t.toString())
+//                    }
+//
+//                    override fun failure(error: RestCallError) {
+//                        Log.w("DemoError", error.errorMessage.toString() + error.errorBody.toString())
+//                    }
+//                }
+//            )
 
-                println(response)
-            } catch (ex: Exception) {
-                ex.printStackTrace()
-            }
+            // Post
+//            val postParameters = HashMap<String, String>()
+//            postParameters["locale"] = "en"
+//            postParameters["preview"] = "1"
+//            client.data.getPost(
+//                "example-2",
+//                callback = object : Callback<Post, RestCallError> {
+//                    override fun success(t: Post) {
+//                        Log.w("success", t.toString())
+//                    }
+//
+//                    override fun failure(error: RestCallError) {
+//                        Log.w("DemoError", error.errorMessage.toString() + error.errorBody.toString())
+//                    }
+//                }
+//            )
+
+//            client.data.getPosts(
+//                postParameters,
+//                callback = object : Callback<Posts, RestCallError> {
+//                    override fun success(t: Posts) {
+//                        Log.w("success", t.toString())
+//                    }
+//
+//                    override fun failure(error: RestCallError) {
+//                        Log.w("DemoError", error.errorMessage.toString() + error.errorBody.toString())
+//                    }
+//                }
+//            )
+
+//            client.data.searchPosts(
+//                "example",
+//                postParameters,
+//                callback = object : Callback<Posts, RestCallError> {
+//                    override fun success(t: Posts) {
+//                        Log.w("success", t.toString())
+//                    }
+//
+//                    override fun failure(error: RestCallError) {
+//                        Log.w("DemoError", error.errorMessage.toString() + error.errorBody.toString())
+//                    }
+//                }
+//            )
+            // Tags
+//            val tagParameters = HashMap<String, String>()
+//            tagParameters["include"] = "recent_posts"
+//            client.data.getTag(
+//                "example-tag",
+//                callback = object : Callback<Tag, RestCallError> {
+//                    override fun success(t: Tag) {
+//                        Log.w("success", t.toString())
+//                    }
+//
+//                    override fun failure(error: RestCallError) {
+//                        Log.w(
+//                            "DemoError",
+//                            error.errorMessage.toString() + error.errorBody.toString()
+//                        )
+//                    }
+//                }
+//            )
+
+//            client.data.getTags(
+//                tagParameters,
+//                callback = object : Callback<Tags, RestCallError> {
+//                    override fun success(t: Tags) {
+//                        Log.w("success", t.toString())
+//                    }
+//
+//                    override fun failure(error: RestCallError) {
+//                        Log.w(
+//                            "DemoError",
+//                            error.errorMessage.toString() + error.errorBody.toString()
+//                        )
+//                    }
+//                }
+//            )
         }.start()
     }
 }

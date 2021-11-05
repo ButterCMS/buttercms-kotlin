@@ -1,6 +1,6 @@
 package com.example.buttercms.model
 
-import java.util.*
+import java.util.Date
 
 data class Category(
     val data: CategoryItem?
@@ -31,6 +31,6 @@ data class CategoryPost(
     val url: String?,
     val featured_image: String?,
     val author: AuthorItem?,
-    val tags: List<Tag>?,
+    val tags: List<TagItem>?,
     val categories: List<Category>?,
 )
