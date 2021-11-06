@@ -33,7 +33,7 @@ val client = ButterCMS("your_api_key")
 
 ### Calling APIs
 
-API calls take map of parameters. Parameters are specified by user according to documentation - check [Butter API doc] (https://buttercms.com/docs/api/)
+API calls take map of parameters. Parameters are specified by user according to documentation - check [Butter API doc](https://buttercms.com/docs/api/)
 Api Calls are asynchronous and expects Callback as a parameter. Callback provides result when API call is finished.  
 
 
@@ -95,8 +95,6 @@ fun getAuthor(
 
 ## Posts
 ### Retrieving Posts 
-
-Calling getPost returns Post object. It contains Meta object and List<Data> object.
     
 getPosts() parameters:
     
@@ -111,8 +109,7 @@ getPosts() queryParameters
 | -------------------------------|:------------------------------:|:-----------------------------------------------------------------:|
 | page(optional)                 | 1                              | Used to paginate through older posts.                             |
 | page_size(optional)            | 10                             | Used to set the number of blog posts shown per page.              |
-| exclude_body(optional)         | false                          | When true, does not return the full post body. Useful for keeping | 
-|                                |                                | response size down when showing a list of blog posts.             |   
+| exclude_body(optional)         | false                          | When true, does not return the full post body.                    |
 | author_slug (optional)         |                                | Filter posts by an author’s slug.                                 | 
 | category_slug(optional)        |                                | Filter posts by a category’s slug.                                |     
 | query                          |                                | Search query                                                      |    
@@ -132,11 +129,9 @@ client.data.getPosts(
         })
 
 ```
+
 ### Retrieving a Single Post
     
-Retrieving a single post will return Post object, which contains MetaPost and Data object.
-    
-
 getPost() parameters
 
 | Parameter        | Description                          |
@@ -155,7 +150,6 @@ client.data.getPost( "example-2",
     
 ## Authors    
 ### Retrieving Authors
-Retrieving Authors returns Authors object which contains List<AuthorItem> object.
 
 getAuthors() parameters
 
@@ -184,8 +178,7 @@ client.data.getAuthors(
 )    
 ```
 
-### Retrieving Single Author    
-Retrieving author returns Author object which contain AuthorItem object.  
+### Retrieving Single Author     
     
 getAuthor() parameters
 
@@ -218,7 +211,6 @@ client.data.getAuthors(
     
 ## Categories
 ### List Categories
-Retrieving list of categories returns Categories object which contains List<CategoryItem>
 
 getCategories() parameters
 
@@ -248,7 +240,6 @@ client.data.getCategories(
 ``` 
     
 ### Retrieving Single Category
-Retrieving category returns CatgoryItem object, which contains CategoryItem
     
 getCategory() parameters
 
@@ -280,7 +271,6 @@ client.data.getCategory(
 ```
 ## Tags
 ### List Tags
-Retrieving tags returns Tags object, which contains List<TagItem>
     
 getTags() parameters
 
@@ -310,7 +300,6 @@ client.data.getTags(
 ```  
     
 ### Tag
-Retrieving Tag returns Tag object, which contains TagItem object.
   
 getTag() parameters
 
@@ -346,10 +335,9 @@ The Pages in Butter CMS has configurable schema. See [ButterCMS](https://butterc
 
 ButerCMS also provides a concept of Page types and you can get all pages of the same type by getPages() API. To read more about the Page types refer to [ButterCMS doc](https://buttercms.com/kb/creating-editing-and-deleting-pages-and-page-types#creatingapagetype).
 
-SDK requires you to model Page schema as data class and pass as parameter to getPages() func. This allows SDK deserialize page data for you. [check example - DemoPage.kt]    
+SDK requires you to model Page schema as data class and pass as parameter to getPages() func. Data class needs to have schema as PageItem. This allows SDK deserialize page data for you. [check example - DemoPage.kt]    
 
 ### List Pages    
-Retrieving list of pages returns Pages object which contains Meta object and List<Any>.
 
 getPages() parameters
 
@@ -389,7 +377,6 @@ client.data.getPages(
             )    
 ```    
 ### Single Page
-Retrieve a single page returns Page<Any> object.
 
 getPage() parameters
 
@@ -431,8 +418,7 @@ client.data.getPage(
 similar as Pages the Collections has also configurable schema. See [ButterCMS](https://buttercms.com/kb/creating-editing-and-deleting-collections#creatingacollection) doc for more details. The schema again define fields which composes the collection item. 
 SDK requires you to model the collection data as a data class and pass as parameter to getCollection func. [check example DemoCollection.kt]
 
-## List collection items
-Retrieve collection items returns Collections object which contains Meta object and Any.
+### List collection items
     
 getCollection() parameters
 
