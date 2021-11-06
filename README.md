@@ -39,7 +39,6 @@ Api Calls are asynchronous and expects Callback as a parameter. Callback provide
 
 Example of calling API:
 
-Your code:
 ```
 val client = ButterCMS("your_api_key")
 
@@ -60,35 +59,6 @@ queryParameters["include"] = "recent_posts"
      Log.w("error", error.errorMessage.toString() + error.errorBody.toString())
      }
  })
-```
-----------------------------------------------------------------------------------------------------------------------
-Behind the scene:
-Helping function (which is called by user above) calls getAuthor retrofit call, wait for result and provides it to user
-```
-//helping function
-@Throws(RestCallError::class)
-fun ButterCmsService.getAuthor(
-    slug: String,
-    queryParameters: Map<String, String>,
-    callback: Callback<Author, RestCallError>
-) {
-    val call = getAuthor(slug, queryParameters)
-    call.enqueueCall {
-        onSuccess = { body ->
-            callback.success(body)
-        }
-        onFailure = {
-            callback.failure(it)
-        }
-    }
-}
-
-//retrofit call
-@GET("$AUTHORS{author}")
-fun getAuthor(
-    @Path("slug") slug: String,
-    @QueryMap queryParameters: Map<String, String>? = emptyMap()
-): Call<Author>
 ```
 
 -------------------------------------------------------------------------------------------------------------------------------------
