@@ -1,7 +1,7 @@
-package com.example.buttercms
+package com.buttercms
 
-import com.example.buttercms.Helper.generateRetrofit
-import com.example.buttercms.Helper.setResponse
+import com.buttercms.Helper.generateRetrofit
+import com.buttercms.Helper.setResponse
 import junit.framework.Assert.assertEquals
 import okhttp3.mockwebserver.MockWebServer
 import org.junit.After
@@ -217,7 +217,7 @@ class Tests {
 
         val actualResponse =
             client.data.getTag(
-                "example-tag"
+                "example-tag", mapOf("include" to "recent_posts")
             ).execute()
         assertEquals(mockResponse, actualResponse.body())
     }

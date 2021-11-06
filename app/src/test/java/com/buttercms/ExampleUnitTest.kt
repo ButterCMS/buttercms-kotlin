@@ -1,4 +1,4 @@
-package com.example.buttercms
+package com.buttercms
 
 import org.junit.Test
 

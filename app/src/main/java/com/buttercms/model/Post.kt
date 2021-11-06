@@ -1,4 +1,4 @@
-package com.example.buttercms.model
+package com.buttercms.model
 
 import com.squareup.moshi.Json
 import java.util.Date

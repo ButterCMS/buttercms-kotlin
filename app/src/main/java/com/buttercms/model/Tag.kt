@@ -1,4 +1,4 @@
-package com.example.buttercms.model
+package com.buttercms.model
 
 data class TagItem(
     val name: String,

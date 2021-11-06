@@ -1,4 +1,4 @@
-package com.example.buttercms.example
+package com.example
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import java.util.Date

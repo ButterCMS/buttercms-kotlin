@@ -1,4 +1,4 @@
-package com.example.buttercms.model
+package com.buttercms.model
 
 import java.util.Date
 

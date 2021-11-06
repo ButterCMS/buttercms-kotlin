@@ -1,4 +1,4 @@
-package com.example.buttercms
+package com.buttercms.helper
 
 import android.annotation.SuppressLint
 import android.icu.text.SimpleDateFormat

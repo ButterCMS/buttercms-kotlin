@@ -1,5 +1,6 @@
-package com.example.buttercms
+package com.buttercms
 
+import com.buttercms.helper.CustomDateAdapter
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import okhttp3.mockwebserver.MockResponse
@@ -62,7 +63,7 @@ class TestInteractor(private val api: ButterCmsService) {
 
     fun getCategories() = api.getCategories(mapOf("include" to "recent_posts")).execute().body()
 
-    fun getTag() = api.getTag("example-tag").execute().body()
+    fun getTag() = api.getTag("example-tag", mapOf("include" to "recent_posts")).execute().body()
     fun getTags() = api.getTags(mapOf("include" to "recent_posts")).execute().body()
 
     fun getPage() =

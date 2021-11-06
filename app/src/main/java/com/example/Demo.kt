@@ -1,12 +1,12 @@
-package com.example.buttercms.example
+package com.example
 
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import com.example.buttercms.*
-import com.example.buttercms.error.Callback
-import com.example.buttercms.error.RestCallError
-import com.example.buttercms.model.*
+import com.buttercms.*
+import com.buttercms.error.Callback
+import com.buttercms.error.RestCallError
+import com.buttercms.model.*
 
 class Demo : AppCompatActivity() {
 

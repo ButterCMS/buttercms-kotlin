@@ -1,4 +1,4 @@
-package com.example.buttercms.example
+package com.example
 
 data class DemoData(
     val faq: List<DemoItem>?

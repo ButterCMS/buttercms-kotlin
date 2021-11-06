@@ -1,4 +1,4 @@
-package com.example.buttercms.error
+package com.buttercms.error
 
 import retrofit2.Call
 import retrofit2.Callback
