@@ -34,7 +34,7 @@ val client = ButterCMS("your_api_key")
 ### Calling APIs
 
 API calls take map of parameters. Parameters are specified by user according to documentation - check [Butter API doc](https://buttercms.com/docs/api/)
-Api Calls are asynchronous and expects Callback as a parameter. Callback provides result when API call is finished.  
+Api Calls are asynchronous and expect Callback as a parameter. Callback provides result when API call is finished.  
 
 
 Example of calling API:
@@ -75,14 +75,14 @@ getPosts() parameters:
     
 getPosts() queryParameters
     
-| QueryParameter                 | Default                        | Description.                                                      |
-| -------------------------------|:------------------------------:|:-----------------------------------------------------------------:|
-| page(optional)                 | 1                              | Used to paginate through older posts.                             |
-| page_size(optional)            | 10                             | Used to set the number of blog posts shown per page.              |
-| exclude_body(optional)         | false                          | When true, does not return the full post body.                    |
-| author_slug (optional)         |                                | Filter posts by an author’s slug.                                 | 
-| category_slug(optional)        |                                | Filter posts by a category’s slug.                                |     
-| query                          |                                | Search query                                                      |    
+| QueryParameter                 | Default                        | Description.                                           |
+| -------------------------------|:------------------------------:|:-------------------------------------------------------|
+| page(optional)                 | 1                              | Used to paginate through older posts                   |
+| page_size(optional)            | 10                             | Used to set the number of blog posts shown per page    |
+| exclude_body(optional)         | false                          | When true, does not return the full post body          |
+| author_slug (optional)         |                                | Filter posts by an author’s slug                       | 
+| category_slug(optional)        |                                | Filter posts by a category’s slug                      |     
+| query                          |                                | Search query                                           |    
 
     
 Example:    
@@ -106,9 +106,10 @@ getPost() parameters
 
 | Parameter        | Description                          |
 | -----------------|:------------------------------------:|
-| slug             | The slug of the post to be retrieved.|     
+| slug             | The slug of the post to be retrieved |     
 
 Example:    
+
 ```
 client.data.getPost( "example-2",
                callback = object : Callback<Post, RestCallError> {
@@ -154,7 +155,7 @@ getAuthor() parameters
 
 | Parameter        | Description                        |
 | -----------------|:----------------------------------:|
-| slug             | Slug of author to be retrieved.    |  
+| slug             | Slug of author to be retrieved     |  
 | queryParameters  | Map of additional query parameters |  
     
 getAuthor() queryParameters
@@ -215,7 +216,7 @@ getCategory() parameters
 
 | Parameter        | Description                           |
 | -----------------|:-------------------------------------:| 
-| slug             | Slug of the category to be retrieved. | 
+| slug             | Slug of the category to be retrieved  | 
 | queryParameters  | Map of additional query parameters    |    
     
 getCategory() queryParameters
@@ -239,6 +240,7 @@ client.data.getCategory(
                 }
             )    
 ```
+
 ## Tags
 ### List Tags
     
@@ -285,6 +287,7 @@ getTag() queryParameters
 | include             | If value is recent_posts, will return recent posts along with categories  |     
     
 Example:    
+
 ``` 
 val queryParameters = HashMap<String, String>()
 queryParameters["include"] = "recent_posts"
@@ -311,23 +314,23 @@ SDK requires you to model Page schema as data class and pass as parameter to get
 
 getPages() parameters
 
-| Parameter        | Description                         |
-| -----------------|:-----------------------------------:|
-| pageType         | Type of pages to be retrieved       |     
-| queryParameters  | Map of additional query parameters  |
-| classType.       | Class Page will be deserialized to  |     
+| Parameter        | Description                                |
+| -----------------|:------------------------------------------ |
+| pageType         | Type of pages to be retrieved              |     
+| queryParameters  | Map of additional query parameters         |
+| classType.       | Class that Page will be deserialized in to |     
     
 getPages() queryParameters
     
 | QueryParameter         | Description                                                               |
-| -----------------------|:-------------------------------------------------------------------------:|
-| preview(optional)      | Set to 1 to return the latest draft version of a page.                    | 
+| -----------------------|:------------------------------------------------------------------------- |
+| preview(optional)      | Set to 1 to return the latest draft version of a page                     | 
 | fields.key(optional)   | Optional param. Filter the result set by the field and value.             |          
-| order(optional)        | Order the result set by this field. Defaults to Asc. '-' to sort Desc.    |     
-| page(optional)         | Used for Paginating through result set.                                   |     
-| page_size (optional)   | Used for Paginating. Defines the number of results returned.              |     
+| order(optional)        | Order the result set by this field. Defaults to Asc. '-' to sort Desc     |     
+| page(optional)         | Used for Paginating through result set                                    |     
+| page_size (optional)   | Used for Paginating. Defines the number of results returned               |     
 | locale(optional)       | Set to the api slug of your configured locale (i.e. en or fr)             |     
-| levels(optional)       | Defaults to 2. Defines the levels of relationships to serialize.          |     
+| levels(optional)       | Defaults to 2. Defines the levels of relationships to serialize           |     
                                   
 Example:
     
@@ -346,21 +349,22 @@ client.data.getPages(
                 }
             )    
 ```    
+
 ### Single Page
 
 getPage() parameters
 
-| Parameter        | Description                         |
-| -----------------|:-----------------------------------:|
-| pageType         | Type of page to be retrieved       |
-| pageSlug         | Slug of page to be retrieved       |     
-| queryParameters  | Map of additional query parameters  |
-| classType        | Class Page will be deserialized to  |     
+| Parameter        | Description                                 |
+| -----------------|:------------------------------------------- |
+| pageType         | Type of page to be retrieved                |
+| pageSlug         | Slug of page to be retrieved                |     
+| queryParameters  | Map of additional query parameters          |
+| classType        | Class that Page will be deserialized in to  |     
     
 getPage() queryParameters
     
 | QueryParameter         | Description                                                               |
-| -----------------------|:-------------------------------------------------------------------------:|
+| -----------------------|:------------------------------------------------------------------------- |
 | preview(optional)      | Set to 1 to return the latest draft version of a page.                    |    
 | locale(optional)       | Set to the api slug of your configured locale (i.e. en or fr)             | 
     
@@ -393,7 +397,7 @@ SDK requires you to model the collection data as a data class and pass as parame
 getCollection() parameters
 
 | Parameter        | Description                                   |
-| -----------------|:---------------------------------------------:|
+| -----------------|:--------------------------------------------- |
 | slug             | collection key                                |    
 | queryParameters  | Map of additional query parameters            |
 | classType        | Class that Colection will be deserialized to  |     
@@ -401,14 +405,14 @@ getCollection() parameters
 getCollection() queryParameters
     
 | QueryParameter         | Description                                                               |
-| -----------------------|:-------------------------------------------------------------------------:|
-| test(optional)         | Set to 1 to enable Preview mode for viewing draft content.                | 
-| fields.key(optional)   | Optional param. Filter the result set by the field and value.             |          
-| order(optional)        | Order the result set by this field. Defaults to Asc. '-' to sort Desc.    |     
-| page(optional)         | Used for Paginating through result set.                                   |     
-| page_size (optional)   | Used for Paginating. Defines the number of results returned.              |     
+| -----------------------|:------------------------------------------------------------------------- |
+| test(optional)         | Set to 1 to enable Preview mode for viewing draft content                 | 
+| fields.key(optional)   | Optional param. Filter the result set by the field and value              |          
+| order(optional)        | Order the result set by this field. Defaults to Asc. '-' to sort Desc     |     
+| page(optional)         | Used for Paginating through result set                                    |     
+| page_size (optional)   | Used for Paginating. Defines the number of results returned               |     
 | locale(optional)       | Set to the api slug of your configured locale (i.e. en or fr)             |     
-| levels(optional)       | Defaults to 2. Defines the levels of relationships to serialize.          | 
+| levels(optional)       | Defaults to 2. Defines the levels of relationships to serialize           | 
   
     
 Example:
