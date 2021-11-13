@@ -1,2 +1,3 @@
 rootProject.name = "ButterCMS"
 include ':app'
+include ':buttercms'

@@ -13,7 +13,11 @@ class Tests {
     val client = ButterCMS("3606556ecbd4134ea24b8936a829ab9edaddb583")
 
     // create instance of retrofit using our fake mockserver
-    val api: ButterCmsService by lazy { generateRetrofit(mockWebServer).create(ButterCmsService::class.java) }
+    val api: ButterCmsService by lazy {
+        generateRetrofit(mockWebServer).create(
+            ButterCmsService::class.java
+        )
+    }
 
     @Before
     fun setUp() {
