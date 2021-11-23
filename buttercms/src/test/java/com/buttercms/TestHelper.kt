@@ -47,29 +47,29 @@ object Helper {
 
 class TestInteractor(private val api: ButterCmsService) {
     fun getAuthor() =
-        api.getAuthor("applifting-sample", mapOf("include" to "recent_posts")).execute().body()
+        api.getAuthorResponse("applifting-sample", mapOf("include" to "recent_posts")).execute().body()
 
-    fun getAuthors() = api.getAuthors(mapOf("include" to "recent_posts")).execute().body()
+    fun getAuthors() = api.getAuthorsResponse(mapOf("include" to "recent_posts")).execute().body()
 
-    fun getPost() = api.getPost("example-2").execute().body()
+    fun getPost() = api.getPostResponse("example-2").execute().body()
     fun getPosts() =
-        api.getPosts(mapOf("page" to "1", "page_size" to "10")).execute().body()
+        api.getPostsResponse(mapOf("page" to "1", "page_size" to "10")).execute().body()
 
     fun searchPosts() =
-        api.searchPosts("example", mapOf("include" to "recent_posts")).execute().body()
+        api.searchPostsResponse("example", mapOf("include" to "recent_posts")).execute().body()
 
     fun getCategory() =
-        api.getCategory("example-category", mapOf("include" to "recent_posts")).execute().body()
+        api.getCategoryResponse("example-category", mapOf("include" to "recent_posts")).execute().body()
 
-    fun getCategories() = api.getCategories(mapOf("include" to "recent_posts")).execute().body()
+    fun getCategories() = api.getCategoriesResponse(mapOf("include" to "recent_posts")).execute().body()
 
-    fun getTag() = api.getTag("example-tag", mapOf("include" to "recent_posts")).execute().body()
-    fun getTags() = api.getTags(mapOf("include" to "recent_posts")).execute().body()
+    fun getTag() = api.getTagResponse("example-tag", mapOf("include" to "recent_posts")).execute().body()
+    fun getTags() = api.getTagsResponse(mapOf("include" to "recent_posts")).execute().body()
 
     fun getPage() =
-        api.getPage("homepage", "homepage", mapOf("locale" to "en")).execute().body()
+        api.getPageResponse("homepage", "homepage", mapOf("locale" to "en")).execute().body()
 
-    fun getPages() = api.getPages("homepage", mapOf("locale" to "en")).execute().body()
+    fun getPages() = api.getPagesResponse("homepage", mapOf("locale" to "en")).execute().body()
 
-    fun getCollections() = api.getCollections("faq", mapOf("locale" to "en")).execute().body()
+    fun getCollections() = api.getCollectionsResponse("faq", mapOf("locale" to "en")).execute().body()
 }

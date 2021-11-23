@@ -37,7 +37,7 @@ class Tests {
         queryParam["include"] = "recent_posts"
 
         val actualResponse =
-            client.data.getAuthor(
+            client.data.getAuthorResponse(
                 authorName,
                 queryParam
             ).execute()
@@ -52,7 +52,7 @@ class Tests {
         queryParam["include"] = "recent_posts"
 
         val response =
-            client.data.getAuthor(
+            client.data.getAuthorResponse(
                 authorName,
                 queryParam
             ).execute()
@@ -66,7 +66,7 @@ class Tests {
         val queryParam = HashMap<String, String>()
         queryParam["include"] = "recent_posts"
 
-        val response = client.data.getAuthor(
+        val response = client.data.getAuthorResponse(
             authorName,
             queryParam
         ).execute()
@@ -85,7 +85,7 @@ class Tests {
         queryParam["include"] = "recent_posts"
 
         val actualResponse =
-            client.data.getAuthors(
+            client.data.getAuthorsResponse(
                 queryParam
             ).execute()
         assertEquals(mockResponse, actualResponse.body())
@@ -102,7 +102,7 @@ class Tests {
         queryParam["include"] = "recent_posts"
 
         val actualResponse =
-            client.data.getCategory(
+            client.data.getCategoryResponse(
                 "example-category", queryParam
             ).execute()
         assertEquals(mockResponse, actualResponse.body())
@@ -118,7 +118,7 @@ class Tests {
         queryParam["include"] = "recent_posts"
 
         val actualResponse =
-            client.data.getCategories(
+            client.data.getCategoriesResponse(
                 queryParam
             ).execute()
         assertEquals(mockResponse, actualResponse.body())
@@ -133,7 +133,7 @@ class Tests {
         val mockResponse = interactor.getCollections()
 
         val actualResponse =
-            client.data.getCollections(
+            client.data.getCollectionsResponse(
                 "faq", mapOf("locale" to "en")
             ).execute()
         assertEquals(mockResponse, actualResponse.body())
@@ -148,7 +148,7 @@ class Tests {
         val mockResponse = interactor.getPage()
 
         val actualResponse =
-            client.data.getPage(
+            client.data.getPageResponse(
                 "homepage", "homepage", mapOf("locale" to "en")
             ).execute()
         assertEquals(mockResponse, actualResponse.body())
@@ -162,7 +162,7 @@ class Tests {
         val mockResponse = interactor.getPages()
 
         val actualResponse =
-            client.data.getPages(
+            client.data.getPagesResponse(
                 "homepage", mapOf("locale" to "en")
             ).execute()
         assertEquals(mockResponse, actualResponse.body())
@@ -177,7 +177,7 @@ class Tests {
         val mockResponse = interactor.getPost()
 
         val actualResponse =
-            client.data.getPost(
+            client.data.getPostResponse(
                 "example-2"
             ).execute()
         assertEquals(mockResponse, actualResponse.body())
@@ -191,7 +191,7 @@ class Tests {
         val mockResponse = interactor.getPosts()
 
         val actualResponse =
-            client.data.getPosts(
+            client.data.getPostsResponse(
                 mapOf("page" to "1", "page_size" to "10")
             ).execute()
         assertEquals(mockResponse, actualResponse.body())
@@ -205,7 +205,7 @@ class Tests {
         val mockResponse = interactor.searchPosts()
 
         val actualResponse =
-            client.data.searchPosts(
+            client.data.searchPostsResponse(
                 "example", mapOf("include" to "recent_post")
             ).execute()
         assertEquals(mockResponse, actualResponse.body())
@@ -220,7 +220,7 @@ class Tests {
         val mockResponse = interactor.getTag()
 
         val actualResponse =
-            client.data.getTag(
+            client.data.getTagResponse(
                 "example-tag", mapOf("include" to "recent_posts")
             ).execute()
         assertEquals(mockResponse, actualResponse.body())
@@ -236,7 +236,7 @@ class Tests {
         queryParam["include"] = "recent_posts"
 
         val actualResponse =
-            client.data.getTags(
+            client.data.getTagsResponse(
                 queryParam
             ).execute()
         assertEquals(mockResponse, actualResponse.body())

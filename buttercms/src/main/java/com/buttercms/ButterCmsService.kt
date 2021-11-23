@@ -36,67 +36,67 @@ interface ButterCmsService {
 
     // Authors
     @GET("$AUTHORS{slug}")
-    fun getAuthor(
+    fun getAuthorResponse(
         @Path("slug") slug: String,
         @QueryMap queryParameters: Map<String, String>? = emptyMap()
     ): Call<Author>
 
     @GET(AUTHORS)
-    fun getAuthors(@QueryMap queryParameters: Map<String, String>? = emptyMap()): Call<Authors>
+    fun getAuthorsResponse(@QueryMap queryParameters: Map<String, String>? = emptyMap()): Call<Authors>
 
     // Categories
     @GET("$CATEGORIES{slug}/")
-    fun getCategory(
+    fun getCategoryResponse(
         @Path("slug") slug: String,
         @QueryMap queryParameters: Map<String, String>? = emptyMap()
     ): Call<Category>
 
     @GET(CATEGORIES)
-    fun getCategories(@QueryMap queryParameters: Map<String, String>? = emptyMap()): Call<Categories>
+    fun getCategoriesResponse(@QueryMap queryParameters: Map<String, String>? = emptyMap()): Call<Categories>
 
     // Collections
     @GET("$COLLECTIONS{slug}/")
-    fun getCollections(
+    fun getCollectionsResponse(
         @Path("slug") slug: String,
         @QueryMap(encoded = true) queryParameters: Map<String, String>? = emptyMap()
     ): Call<Collections>
 
     // Pages
     @GET("$PAGES{page_type}/{page_slug}/")
-    fun getPage(
+    fun getPageResponse(
         @Path("page_type") page_type: String,
         @Path("page_slug") page_slug: String,
         @QueryMap queryParameters: Map<String, String>
     ): Call<Page>
 
     @GET("$PAGES{page_type}/")
-    fun getPages(
+    fun getPagesResponse(
         @Path("page_type") page_type: String,
         @QueryMap queryParameters: Map<String, String>
     ): Call<Pages>
 
     // Posts
     @GET("$POSTS{slug}/")
-    fun getPost(@Path("slug") slug: String): Call<Post>
+    fun getPostResponse(@Path("slug") slug: String): Call<Post>
 
     @GET(POSTS)
-    fun getPosts(@QueryMap queryParameters: Map<String, String>? = emptyMap()): Call<Posts>
+    fun getPostsResponse(@QueryMap queryParameters: Map<String, String>? = emptyMap()): Call<Posts>
 
     @GET(SEARCH)
-    fun searchPosts(
+    fun searchPostsResponse(
         @Query("query") query: String,
         @QueryMap queryParameters: Map<String, String>
     ): Call<Posts>
 
     // Tag
     @GET("$TAGS{slug}/")
-    fun getTag(
+    fun getTagResponse(
         @Path("slug") slug: String,
         @QueryMap queryParameters: Map<String, String>
     ): Call<Tag>
 
     @GET(TAGS)
-    fun getTags(@QueryMap queryParameters: Map<String, String>? = emptyMap()): Call<Tags>
+    fun getTagsResponse(@QueryMap queryParameters: Map<String, String>? = emptyMap()): Call<Tags>
 }
 
 @Throws(RestCallError::class)
@@ -105,7 +105,7 @@ fun ButterCmsService.getAuthor(
     queryParameters: Map<String, String>,
     callback: Callback<Author, RestCallError>
 ) {
-    val call = getAuthor(slug, queryParameters)
+    val call = getAuthorResponse(slug, queryParameters)
     call.enqueueCall {
         onSuccess = { body ->
             callback.success(body)
@@ -122,7 +122,7 @@ fun ButterCmsService.getAuthors(
     queryParameters: Map<String, String>,
     callback: Callback<Authors, RestCallError>
 ) {
-    val call = getAuthors(queryParameters)
+    val call = getAuthorsResponse(queryParameters)
     call.enqueueCall {
         onSuccess = { body ->
             callback.success(body)
@@ -140,7 +140,7 @@ fun ButterCmsService.getCategory(
     queryParameters: Map<String, String>,
     callback: Callback<Category, RestCallError>
 ) {
-    val call = getCategory(slug, queryParameters)
+    val call = getCategoryResponse(slug, queryParameters)
     call.enqueueCall {
         onSuccess = { body ->
             callback.success(body)
@@ -157,7 +157,7 @@ fun ButterCmsService.getCategories(
     queryParameters: Map<String, String>,
     callback: Callback<Categories, RestCallError>
 ) {
-    val call = getCategories(queryParameters)
+    val call = getCategoriesResponse(queryParameters)
     call.enqueueCall {
         onSuccess = { body ->
             callback.success(body)
@@ -175,7 +175,7 @@ fun <T> ButterCmsService.getCollection(
     myCollection: Class<T>,
     callback: Callback<Collections, RestCallError>
 ) {
-    val call = getCollections(slug, queryParameters)
+    val call = getCollectionsResponse(slug, queryParameters)
     val moshi = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
     val adapter = moshi.adapter<Any>(Collections::class.java)
     call.enqueueCall {
@@ -207,7 +207,7 @@ fun <T> ButterCmsService.getPage(
     classType: Class<T>,
     callback: Callback<Page, RestCallError>
 ) {
-    val call = getPage(pageType, pageSlug, queryParameters)
+    val call = getPageResponse(pageType, pageSlug, queryParameters)
     call.enqueueCall {
         onSuccess = { body ->
             val mapper = ObjectMapper().registerModule(KotlinModule())
@@ -234,7 +234,7 @@ fun <T> ButterCmsService.getPages(
     callback: Callback<Pages, RestCallError>
 ) {
     val call =
-        getPages(pageType, queryParameters)
+        getPagesResponse(pageType, queryParameters)
 
     call.enqueueCall {
         onSuccess = { body ->
@@ -260,7 +260,7 @@ fun ButterCmsService.getPost(
     slug: String,
     callback: Callback<Post, RestCallError>
 ) {
-    val call = getPost(slug)
+    val call = getPostResponse(slug)
     call.enqueueCall {
         onSuccess = { body ->
             callback.success(body)
@@ -277,7 +277,7 @@ fun ButterCmsService.getPosts(
     queryParameters: Map<String, String>,
     callback: Callback<Posts, RestCallError>
 ) {
-    val call = getPosts(queryParameters)
+    val call = getPostsResponse(queryParameters)
     call.enqueueCall {
         onSuccess = { body ->
             callback.success(body)
@@ -295,7 +295,7 @@ fun ButterCmsService.searchPosts(
     queryParameters: Map<String, String>,
     callback: Callback<Posts, RestCallError>
 ) {
-    val call = searchPosts(query, queryParameters)
+    val call = searchPostsResponse(query, queryParameters)
     call.enqueueCall {
         onSuccess = { body ->
             callback.success(body)
@@ -313,7 +313,7 @@ fun ButterCmsService.getTag(
     queryParameters: Map<String, String>,
     callback: Callback<Tag, RestCallError>
 ) {
-    val call = getTag(slug, queryParameters)
+    val call = getTagResponse(slug, queryParameters)
     call.enqueueCall {
         onSuccess = { body ->
             callback.success(body)
@@ -330,7 +330,7 @@ fun ButterCmsService.getTags(
     queryParameters: Map<String, String>,
     callback: Callback<Tags, RestCallError>
 ) {
-    val call = getTags(queryParameters)
+    val call = getTagsResponse(queryParameters)
     call.enqueueCall {
         onSuccess = { body ->
             callback.success(body)
