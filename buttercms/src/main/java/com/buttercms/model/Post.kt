@@ -1,6 +1,8 @@
 package com.buttercms.model
 
+import android.os.Parcelable
 import com.squareup.moshi.Json
+import kotlinx.parcelize.Parcelize
 import java.util.Date
 
 data class Post(
@@ -30,6 +32,7 @@ data class PreviousPost(
     val featured_image: String?
 )
 
+@Parcelize
 data class Data(
     val status: Status?,
     val created: Date?,
@@ -47,7 +50,7 @@ data class Data(
     val author: AuthorItem?,
     val tags: List<TagItem>?,
     val categories: List<CategoryItem>?,
-)
+) : Parcelable
 
 enum class Status {
     @Json(name = "draft")

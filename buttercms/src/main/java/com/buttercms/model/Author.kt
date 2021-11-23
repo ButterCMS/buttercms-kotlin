@@ -1,5 +1,9 @@
 package com.buttercms.model
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
 data class AuthorItem(
     val first_name: String,
     val last_name: String?,
@@ -15,7 +19,7 @@ data class AuthorItem(
     val profile_image: String?,
     // With query include=recent_posts:
     val recent_posts: List<Data>?
-)
+) : Parcelable
 
 data class Author(
     val data: AuthorItem

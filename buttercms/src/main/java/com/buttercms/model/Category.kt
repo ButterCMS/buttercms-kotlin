@@ -1,21 +1,26 @@
 package com.buttercms.model
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
 import java.util.Date
 
+@Parcelize
 data class Category(
     val data: CategoryItem?
-)
+) : Parcelable
 
 data class Categories(
     val data: List<CategoryItem>
 )
 
+@Parcelize
 data class CategoryItem(
     val name: String,
     val slug: String,
     val recent_posts: List<CategoryPost>?
-)
+) : Parcelable
 
+@Parcelize
 data class CategoryPost(
     val status: Status?,
     val created: Date?,
@@ -33,4 +38,4 @@ data class CategoryPost(
     val author: AuthorItem?,
     val tags: List<TagItem>?,
     val categories: List<Category>?,
-)
+) : Parcelable
