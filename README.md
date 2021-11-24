@@ -11,7 +11,7 @@ build.gradle
 
 ```
 dependencies {
-    implementation 'com.buttercms:buttercmsandroid: '
+    implementation "com.buttercms.android:buttercmsclient-kotlin:1.0.0"
 }
 ```
 
