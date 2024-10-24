@@ -9,11 +9,13 @@ For a comprehensive list of examples, check out the [API documentation](https://
 
 build.gradle
 
+<!-- {x-release-please-start-version} -->
 ```
 dependencies {
     implementation "com.buttercms.android:buttercmsclient-kotlin:1.0.0"
 }
 ```
+<!-- {x-release-please-end} -->
 
 ### Sections
 - Authors
