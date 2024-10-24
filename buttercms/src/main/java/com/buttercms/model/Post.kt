@@ -38,6 +38,7 @@ data class Data(
     val created: Date?,
     val updated: Date?,
     val published: Date?,
+    val scheduled: Date?,
     val title: String,
     val slug: String,
     val body: String?,
@@ -57,5 +58,9 @@ enum class Status {
     DRAFT,
 
     @Json(name = "published")
-    PUBLISHED
+    PUBLISHED,
+
+    @Json(name = "scheduled")
+    SCHEDULED
 }
+
