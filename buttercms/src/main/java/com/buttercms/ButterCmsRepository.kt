@@ -12,7 +12,7 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 
 class ButterCmsRepository {
 
-    private val baseUrl = "https://api.buttercms.com/v2/"
+    private val baseUrlDefault = "https://api.buttercms.com/v2/"
     private val interceptor = HttpLoggingInterceptor().apply {
         setLevel(HttpLoggingInterceptor.Level.BODY)
     }
@@ -36,10 +36,26 @@ class ButterCmsRepository {
         .add(KotlinJsonAdapterFactory())
         .build()
 
-    fun retrofitClient(apiToken: String): Retrofit = Retrofit.Builder()
-        .baseUrl(baseUrl)
-        .addConverterFactory(MoshiConverterFactory.create(moshi))
-        .addCallAdapterFactory(CoroutineCallAdapterFactory())
-        .client(okhttpClient(apiToken).addInterceptor(interceptor).build())
-        .build()
+    // Retrofit client returns a client with default base URL or API_BASE_URL from environment variable
+    fun retrofitClient(apiToken: String): Retrofit {
+        val baseUrl = System.getenv("API_BASE_URL")?.takeIf { it.isNotBlank() }
+            ?: baseUrlDefault
+
+        // Create logging interceptor
+        val loggingInterceptor = HttpLoggingInterceptor().apply {
+            level = HttpLoggingInterceptor.Level.BODY
+        }
+
+        val client = okhttpClient(apiToken)
+            .addInterceptor(loggingInterceptor)
+            .addInterceptor(interceptor)
+            .build()
+        
+        return Retrofit.Builder()
+            .baseUrl(baseUrl) 
+            .addConverterFactory(MoshiConverterFactory.create(moshi))
+            .addCallAdapterFactory(CoroutineCallAdapterFactory())
+            .client(client)
+            .build()
+    }
 }
