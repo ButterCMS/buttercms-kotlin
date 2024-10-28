@@ -10,7 +10,7 @@ data class PageItem(
     val page_type: String,
     val fields: Any,
     val status: PageStatus,
-    val scheduled: Date
+    val scheduled: Date?
 )
 
 data class Pages(
