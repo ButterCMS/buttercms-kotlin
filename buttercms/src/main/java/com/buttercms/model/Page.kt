@@ -8,7 +8,9 @@ data class PageItem(
     val published: Date?,
     val updated: Date?,
     val page_type: String,
-    val fields: Any
+    val fields: Any,
+    val status: PageStatus,
+    val scheduled: Date?
 )
 
 data class Pages(
@@ -19,3 +21,10 @@ data class Pages(
 data class Page(
     val data: Any
 )
+
+enum class PageStatus {
+    DRAFT,
+    PUBLISHED,
+    SCHEDULED
+}
+
